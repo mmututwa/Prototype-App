@@ -30,7 +30,7 @@ struct CoursesView: View {
                         Text("Back")
                             .font(.system(size: 16))
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(.blue)
                 }
             }
         }
