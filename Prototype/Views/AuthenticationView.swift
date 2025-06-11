@@ -280,5 +280,6 @@ struct AuthTextFieldStyle: TextFieldStyle {
 
 #Preview {
     AuthenticationView()
+        .environmentObject(AuthenticationService())
         .preferredColorScheme(.dark)
 } 

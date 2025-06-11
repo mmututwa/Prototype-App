@@ -225,5 +225,6 @@ struct CourseDetailView: View {
             views: nil
         ))
     }
+    .environmentObject(AuthenticationService())
     .preferredColorScheme(.dark)
 } 
