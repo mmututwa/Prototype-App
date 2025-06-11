@@ -156,7 +156,7 @@ struct CourseDetailView: View {
         let isEnrolled = authService.currentUser?.enrolledCourses.contains(course.id) ?? false
         let isCompleted = authService.currentUser?.completedCourses.contains(course.id) ?? false
         
-        Button(action: {
+        return Button(action: {
             if isCompleted {
                 // Already completed, no action needed
                 return
