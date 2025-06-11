@@ -341,5 +341,6 @@ struct BackgroundView: View {
 
 #Preview("iPhone") {
     ContentView()
+        .environmentObject(AuthenticationService())
         .preferredColorScheme(.dark)
 }

@@ -130,5 +130,6 @@ struct CourseCard: View {
 
 #Preview {
     CoursesView()
+        .environmentObject(AuthenticationService())
         .preferredColorScheme(.dark)
 } 
