@@ -46,7 +46,10 @@ struct CoursesView: View {
         return ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(courses) { course in
-                    CourseCard(course: course)
+                    NavigationLink(destination: CourseDetailView(course: course)) {
+                        CourseCard(course: course)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.horizontal, 24)
