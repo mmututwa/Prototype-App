@@ -9,15 +9,14 @@ struct CoursesView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Featured Courses")
-                .font(.system(size: 24, weight: .bold))
-                .foregroundColor(.white)
-                .padding(.horizontal, 24)
-                .padding(.top, 32)
-
             content
         }
+        .padding(.top, 16)
         .background(BackgroundView())
+        .navigationTitle("Featured Courses")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbarBackground(.clear, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .task {
             await loadCourses()
         }

@@ -301,6 +301,7 @@ struct ContentView: View {
                 .navigationBarHidden(true)
                 .background(BackgroundView())
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private var scrollableContent: some View {
