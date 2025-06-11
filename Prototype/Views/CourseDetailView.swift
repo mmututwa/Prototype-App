@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CourseDetailView: View {
     let course: Course
+    @EnvironmentObject var authService: AuthenticationService
     
     var body: some View {
         ScrollView {
@@ -16,6 +17,7 @@ struct CourseDetailView: View {
                     courseDescription
                     courseBenefits
                     coursePrerequisites
+                    enrollmentButton
                 }
                 .padding(.horizontal, 24)
             }
@@ -148,6 +150,47 @@ struct CourseDetailView: View {
                 }
             }
         }
+    }
+    
+    private var enrollmentButton: some View {
+        let isEnrolled = authService.currentUser?.enrolledCourses.contains(course.id) ?? false
+        let isCompleted = authService.currentUser?.completedCourses.contains(course.id) ?? false
+        
+        Button(action: {
+            if isCompleted {
+                // Already completed, no action needed
+                return
+            } else if isEnrolled {
+                authService.completeCourse(course.id)
+            } else {
+                authService.enrollInCourse(course.id)
+            }
+        }) {
+            HStack {
+                if isCompleted {
+                    Image(systemName: "checkmark.circle.fill")
+                    Text("Completed")
+                } else if isEnrolled {
+                    Image(systemName: "play.circle.fill")
+                    Text("Mark as Complete")
+                } else {
+                    Image(systemName: "plus.circle.fill")
+                    Text("Enroll Now")
+                }
+            }
+            .font(.headline)
+            .fontWeight(.semibold)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .background(
+                isCompleted ? Color.green :
+                isEnrolled ? Color.orange : Color.blue
+            )
+            .cornerRadius(16)
+        }
+        .disabled(isCompleted)
+        .padding(.top, 24)
     }
 }
 

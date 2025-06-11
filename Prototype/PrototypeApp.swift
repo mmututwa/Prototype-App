@@ -9,9 +9,28 @@ import SwiftUI
 
 @main
 struct PrototypeApp: App {
+    @StateObject private var authService = AuthenticationService()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppCoordinatorView()
+                .environmentObject(authService)
+        }
+    }
+}
+
+struct AppCoordinatorView: View {
+    @EnvironmentObject var authService: AuthenticationService
+    
+    var body: some View {
+        Group {
+            if authService.isAuthenticated {
+                MainTabView()
+                    .environmentObject(authService)
+            } else {
+                AuthenticationView()
+                    .environmentObject(authService)
+            }
         }
     }
 }
