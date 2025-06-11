@@ -4,6 +4,7 @@ struct CoursesView: View {
     @State private var courses: [Course] = []
     @State private var isLoading = true
     @State private var errorMessage: String?
+    @Environment(\.presentationMode) var presentationMode
     
     private let apiService = ApiService()
     
@@ -15,8 +16,24 @@ struct CoursesView: View {
         .background(BackgroundView())
         .navigationTitle("Featured Courses")
         .navigationBarTitleDisplayMode(.large)
+        .navigationBarBackButtonHidden(true)
         .toolbarBackground(.clear, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text("Back")
+                            .font(.system(size: 16))
+                    }
+                    .foregroundColor(.white)
+                }
+            }
+        }
         .task {
             await loadCourses()
         }
